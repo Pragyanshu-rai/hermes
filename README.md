@@ -4,7 +4,7 @@
 
 ## Welcome to Hermes
 
-Hermes is a powerful and user-friendly command-line tool designed for searching text patterns across files and directories. Whether you're a developer searching through logs, or anyone needing to find patterns in a large file system, Hermes simplifies the task.
+Hermes is a powerful and user-friendly tool designed for searching text patterns across files and directories. Whether you're a developer searching through logs, or anyone needing to find patterns in a large file system, Hermes simplifies the task.
 
 ---
 
