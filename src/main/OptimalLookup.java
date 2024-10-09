@@ -11,11 +11,11 @@ public class OptimalLookup {
 
     private static int count = 0;
 
-    public static int find(String dir, String target) {
+    public static int find(String dir, String target, int level) {
 
         try {
             ThreadPoolExecutor pool = new ThreadPoolExecutor(200, 250, 1, TimeUnit.MINUTES, new ArrayBlockingQueue<Runnable>(600), new ThreadPoolExecutor.CallerRunsPolicy());
-            GetFiles getFiles = new GetFiles(dir);
+            GetFiles getFiles = new GetFiles(dir, level);
             Vector<Vector<String>> names_list = getFiles.fetchBatch(200);
 
             for(Vector<String> names : names_list) {

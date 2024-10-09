@@ -3,11 +3,11 @@ package src.main;
 import src.results.Result;
 import src.results.ResultCounter;
 
-import java.io.FileNotFoundException;
+import java.util.Vector;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Vector;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 
 class Finder implements Runnable {
 
@@ -30,7 +30,6 @@ class Finder implements Runnable {
     }
 
     private static synchronized void log(Result result) {
-
         ResultCounter.increment();
         resultList.add(result.toString());
     }

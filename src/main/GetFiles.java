@@ -2,6 +2,7 @@ package src.main;
 
 import java.io.File;
 import java.io.IOException;
+
 import java.util.Vector;
 
 class GetFiles {
@@ -9,10 +10,10 @@ class GetFiles {
 
     private Vector<String> fileList;
 
-    public GetFiles(String dir) {
+    public GetFiles(String dir, int level) {
         this.curDir = new File(dir);
         this.fileList = new Vector<String>();
-        this.populateAll(this.curDir.listFiles());
+        this.populateAll(this.curDir.listFiles(), level);
     }
 
     private void populate() {
@@ -26,9 +27,9 @@ class GetFiles {
         }
     }
 
-    private void populateAll(File[] files) {
+    private void populateAll(File[] files, int level) {
 
-        if (files == null || files.length == 0) {
+        if (files == null || files.length == 0 || level == 0) {
             return;
         }
         Vector<String> dirList = new Vector<String>();
@@ -47,7 +48,7 @@ class GetFiles {
         }
 
         for(String dirName : dirList) {
-            populateAll((new File(dirName).listFiles()));
+            populateAll((new File(dirName).listFiles()), level-1);
         }
         return;
     }

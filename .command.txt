@@ -1,0 +1,2 @@
+ javac -d ./target/ ./src/{/log/Colors,argUtils/{Arguments,ArgumentsTransform},exceptions/{HelpArgException,NoArgException},results/{ResultCounter,Result,ResultSet},main/{GetFiles,Finder,OptimalLookup},App}.java
+ jar -cfm hermes.jar META-INF/MANIFEST.MF -C target/ .
