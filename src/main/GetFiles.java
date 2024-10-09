@@ -17,6 +17,7 @@ class GetFiles {
     }
 
     private void populate() {
+
         File[] files = curDir.listFiles();
 
         for(File file : files) {
@@ -48,7 +49,8 @@ class GetFiles {
         }
 
         for(String dirName : dirList) {
-            populateAll((new File(dirName).listFiles()), level-1);
+            File[] fileArr = new File(dirName).listFiles();
+            populateAll(fileArr, level-1);
         }
         return;
     }

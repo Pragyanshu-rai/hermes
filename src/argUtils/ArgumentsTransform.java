@@ -19,7 +19,9 @@ public class ArgumentsTransform {
 
     private String[] args;
 
-    private String options;
+    private Options options;
+
+    private String optionsString;
 
     private boolean hasLevel;
 
@@ -30,8 +32,8 @@ public class ArgumentsTransform {
     private boolean caseInsensitive;
 
     {
-        // setting level to a infinite
-        this.level = -1;
+        // setting level to current directory
+        this.level = 1;
 
         // setting src to the current folder
         this.src = ".";
@@ -40,16 +42,7 @@ public class ArgumentsTransform {
         this.pattern = new String();
 
         // setting options to an empty string
-        this.options = new String();
-
-        // setting all the flags to false
-        this.hasLevel = false;
-
-        this.needsHelp = false;
-
-        this.isWordWrapped = false;
-
-        this.caseInsensitive = false;
+        this.optionsString = new String();
     }
 
     public ArgumentsTransform(String[] args) {
@@ -65,27 +58,14 @@ public class ArgumentsTransform {
                 options.append(arg);
             }
         }
-        this.options = options.toString();
+        this.optionsString = options.toString();
     }
 
-    private void setOptionFlags() {
-        this.extractOptions();
+    private void setLevel(boolean isRecursive) {
 
-        for(char symbol: this.options.toCharArray()) {
-
-            if(symbol == 'h' || symbol == 'H') {
-                this.needsHelp = true;
-            } else if (symbol == 'i' || symbol == 'I') {
-                this.caseInsensitive = true;
-            } else if (symbol == 'w' || symbol == 'W') {
-                this.isWordWrapped = true;
-            } else if (symbol == 'l' || symbol == 'L') {
-                this.hasLevel = true;
-            }
+        if(isRecursive) {
+            this.level = -1;
         }
-    }
-
-    private void extractLevel() {
 
         for(String arg: args) {
 
@@ -96,12 +76,17 @@ public class ArgumentsTransform {
     }
 
     private void loadOptions() throws HelpArgException{
-        this.setOptionFlags();
+        this.extractOptions();
+        this.options = new Options(this.optionsString);
 
-        if(this.needsHelp) {
+        if(this.options.hasHelp()) {
             throw new HelpArgException();
-        } if(this.hasLevel) {
-            this.extractLevel();
+        }
+
+        if(this.options.isRecursiveSearch()) {
+            this.setLevel(true);
+        } else if(this.options.hasLevel()) {
+            this.setLevel(false);
         }
     }
 
@@ -128,12 +113,12 @@ public class ArgumentsTransform {
 
     private void transformPattern() {
 
-        if (this.isWordWrapped) {
+        if (this.options.isWordWrapped()) {
             this.pattern += "\\b";
         }
         this.pattern = "^.*" + this.pattern + ".*$";
 
-        if (this.caseInsensitive) {
+        if (this.options.isCaseInsensitive()) {
             this.pattern = "(?i)" + this.pattern;
         }
     }

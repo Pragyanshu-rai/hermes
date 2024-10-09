@@ -7,10 +7,13 @@ import src.results.ResultCounter;
 import src.exceptions.NoArgException;
 import src.exceptions.HelpArgException;
 
+import src.argUtils.Options;
 import src.argUtils.Arguments;
 import src.argUtils.ArgumentsTransform;
 
 public class App {
+
+    private static Options options;
 
     private static Arguments arguments;
 
@@ -33,8 +36,12 @@ public class App {
             System.out.println("Oops that was an unexpected Exception.");
             System.exit(1);
         }
+        options = arguments.getOptions();
         int totalCount = OptimalLookup.find(arguments.getSrc(), arguments.getPattern(), arguments.getLevel());
-        final long endTime = System.currentTimeMillis();
-        System.out.println("\nDONE\n\n"+ResultCounter.show()+" results found in "+ (endTime-startTime) + " ms from " + totalCount + " files.\n");
+
+        if (options.needsPerformanceLog()) {
+            final long endTime = System.currentTimeMillis();
+            System.out.println("\nDONE\n\n"+ResultCounter.show()+" results found in "+ (endTime-startTime) + " ms from " + totalCount + " files.\n");
+        }
     }
 }
