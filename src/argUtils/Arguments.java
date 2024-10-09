@@ -8,9 +8,9 @@ public class Arguments {
 
     private String pattern;
 
-    private String options;
+    private Options options;
 
-    public Arguments(int level, String src, String pattern, String options) {
+    public Arguments(int level, String src, String pattern, Options options) {
         this.src = src;
         this.level = level;
         this.pattern = pattern;
@@ -29,7 +29,7 @@ public class Arguments {
         return pattern;
     }
 
-    public String getOptions() {
+    public Options getOptions() {
         return options;
     }
 }

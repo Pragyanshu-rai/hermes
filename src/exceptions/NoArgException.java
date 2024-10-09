@@ -1,11 +1,10 @@
 package src.exceptions;
 
+import src.log.Message;
+
 public class NoArgException extends Exception{
 
-    private final static String message =
-            "\n"+
-            "Usage: look [OPTION] [PATTERN] [FILE]\n" +
-            "Try 'look -h' for more information.\n";
+    private static String message = Message.noArg;
 
     @Override
     public String getMessage() {
