@@ -65,13 +65,13 @@ public class ArgumentsTransform {
                 options.append(arg);
             }
         }
-        this.options = options.toString();
+        this.optionsString = options.toString();
     }
 
     private void setOptionFlags() {
         this.extractOptions();
 
-        for(char symbol: this.options.toCharArray()) {
+        for(char symbol: this.optionsString.toCharArray()) {
 
             if(symbol == 'h' || symbol == 'H') {
                 this.needsHelp = true;
@@ -160,6 +160,6 @@ public class ArgumentsTransform {
         this.parseArguments();;
 
         // returning the Arguments object
-        return new Arguments(this.level, this.src, this.pattern, this.options);
+        return new Arguments(this.level, this.src, this.pattern, this.optionsString);
     }
 }
