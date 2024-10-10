@@ -26,7 +26,7 @@ class Finder implements Runnable {
     public Finder(String fileName, String target) {
         this.fileName = fileName;
         this.target = target;
-        this.result = new Result(fileName);
+        this.result = new Result(fileName, );
     }
 
     private static synchronized void log(Result result) {
