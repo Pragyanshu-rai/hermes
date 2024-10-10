@@ -1,4 +1,4 @@
-# Hermes - Version 1.0
+# Hermes - Version 1.2
 
 <img src="https://github.com/Pragyanshu-rai/static/blob/master/hermes/hermes_icon.png" alt="Hermes Logo" width="200" height="200">
 
