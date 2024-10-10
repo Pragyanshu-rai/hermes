@@ -1,1 +1,6 @@
+# files
 *.jar
+.command.txt
+
+# directories
+target/**
