@@ -65,12 +65,13 @@ public class ArgumentsTransform {
 
         if(isRecursive) {
             this.level = -1;
-        }
+        } else {
 
-        for(String arg: args) {
+            for(String arg: args) {
 
-            if(arg.matches(isDigit)) {
-                this.level = Integer.parseInt(arg);
+                if(arg.matches(isDigit)) {
+                    this.level = Integer.parseInt(arg);
+                }
             }
         }
     }

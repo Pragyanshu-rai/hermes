@@ -1,5 +1,7 @@
 package src;
 
+import src.log.Logger;
+
 import src.main.OptimalLookup;
 
 import src.results.ResultCounter;
@@ -37,11 +39,11 @@ public class App {
             System.exit(1);
         }
         options = arguments.getOptions();
-        int totalCount = OptimalLookup.find(arguments.getSrc(), arguments.getPattern(), arguments.getLevel());
+        int totalCount = OptimalLookup.find(arguments.getSrc(), arguments.getPattern(), arguments.getLevel(), options);
 
         if (options.needsPerformanceLog()) {
             final long endTime = System.currentTimeMillis();
-            System.out.println("\nDONE\n\n"+ResultCounter.show()+" results found in "+ (endTime-startTime) + " ms from " + totalCount + " files.\n");
+            Logger.performanceLog(ResultCounter.show(), (endTime-startTime), totalCount, options.hasColor());
         }
     }
 }

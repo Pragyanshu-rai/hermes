@@ -12,6 +12,8 @@ Hermes is a powerful and user-friendly tool designed for searching text patterns
 
 - **Recursive Search**: Search for patterns recursively in directories.
 - **Case-insensitive Search**: Perform case-insensitive searches with ease.
+- **Level Limit Search**: Search for patterns up to the required depth.
+- **Performance Metric**: Get realtime performance log for the search session.
 
 ---
 
