@@ -23,10 +23,10 @@ class Finder implements Runnable {
         Finder.resultList = new Vector<String>();
     }
 
-    public Finder(String fileName, String target) {
+    public Finder(String fileName, String target, boolean needsColor) {
         this.fileName = fileName;
         this.target = target;
-        this.result = new Result(fileName);
+        this.result = new Result(fileName, needsColor);
     }
 
     private static synchronized void log(Result result) {
