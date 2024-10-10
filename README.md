@@ -13,16 +13,16 @@ Hermes is a powerful and user-friendly tool designed for searching text patterns
 - **Recursive Search**: Search for patterns recursively in directories.
 - **Case-insensitive Search**: Perform case-insensitive searches with ease.
 - **Level Limit Search**: Search for patterns up to the required depth.
-- **Performance Metric**: Get realtime performance log for the search session.
+- **Performance Metric**: Get a real-time performance log for the search session.
 
 ---
 
 ## Info
 
-Hermes is a command-line tool designed to facilitate searching for specific text patterns across files and directories. Hermes makes it easier to find patterns like error messages or logs within a directory structure. The tool supports recursive search and case-insensitive pattern matching, making it highly flexible for large code bases or log analysis.
+Hermes is a command-line tool that facilitates searching for specific text patterns across files and directories. Hermes makes it easier to find patterns like error messages or logs within a directory structure. The tool supports recursive search and case-insensitive pattern matching, making it highly flexible for large code bases or log analysis.
 
 The repository includes the full source code.
-You can explore more about its usage and setup on its [GitHub page](https://github.com/Pragyanshu-rai/hermes_cli).
+You can explore its usage and setup here [Hermes CLI](https://github.com/Pragyanshu-rai/hermes_cli).
 
 ---
 
