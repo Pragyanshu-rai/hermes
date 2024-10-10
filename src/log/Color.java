@@ -73,4 +73,17 @@ public class Color {
     public static final String PURPLE_BACKGROUND_BRIGHT = "\033[0;105m"; // PURPLE
     public static final String CYAN_BACKGROUND_BRIGHT = "\033[0;106m";  // CYAN
     public static final String WHITE_BACKGROUND_BRIGHT = "\033[0;107m";   // WHITE
+
+    // methos for adding colors to string
+    public static final String addPurple(String target) {
+        return PURPLE + target + RESET;
+    }
+
+    public static final String addBoldGreen(String target) {
+        return GREEN_BOLD + target + RESET;
+    }
+
+    public static final String addBoldWhite(String target) {
+        return WHITE_BOLD + target + RESET;
+    }
 }

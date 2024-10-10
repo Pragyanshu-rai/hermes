@@ -2,7 +2,7 @@ package src.results;
 
 import java.util.Vector;
 
-import src.log.Colors;
+import src.log.Color;
 
 public class Result {
 
@@ -17,13 +17,13 @@ public class Result {
 
     public Result(String fileName, boolean needsColor) {
         this();
-        this.fileName = fileName;
+        this.fileName = this.addColorIf(fileName, needsColor);
     }
 
     private String addColorIf(String fileName, boolean needsColor) {
 
         if(needsColor) {
-            fileName = Color.PURPLE + fileName + Color.RESET;
+            fileName = Color.addPurple(fileName);
         }
         return fileName;
     }
