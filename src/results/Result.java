@@ -10,14 +10,17 @@ public class Result {
 
     private Vector<String> resultSet;
 
+    private boolean shouldLogFileName;
+
     public Result() {
         this.fileName = "";
         this.resultSet = new Vector<String>();
     }
 
-    public Result(String fileName, boolean needsColor) {
+    public Result(String fileName, boolean shouldLogFileName, boolean needsColor) {
         this();
-        this.fileName = this.addColorIf(fileName, needsColor);
+        this.shouldLogFileName = shouldLogFileName;
+        this.fileName = shouldLogFileName? this.addColorIf(fileName, needsColor) : "" ;
     }
 
     private String addColorIf(String fileName, boolean needsColor) {
@@ -34,6 +37,6 @@ public class Result {
 
     @Override
     public String toString() {
-        return this.fileName+"\n"+String.join("\n", this.resultSet);
+        return (this.shouldLogFileName ? this.fileName+"\n" : "")+String.join("\n", this.resultSet);
     }
 }
