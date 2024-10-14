@@ -12,7 +12,7 @@ public class Message {
                     "  -w, -W          Search for patterns recursively in directories.\n" +
                     "  -i, -I          Perform case-insensitive pattern matching.\n" +
                     "  -c, -C          Will color code the output.\n" +
-                    "  -l, -L          Can specify the depth level for the search by passing a number in the argument\n\t\twith this flag set.\n" +
+                    "  -l, -L          Can specify the depth level for the search by passing a number in the argument with this flag set.\n" +
                     "  -r, -R          Will run a recursive search down from the give path, this Supersedes depth level flag.\n" +
                     "  -p, -P          Will log the performance metric for the search session.\n" +
                     "  -h, -H          Show this help message and exit.\n" +
