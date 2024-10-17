@@ -1,5 +1,7 @@
 package src.main;
 
+import java.util.Vector;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -21,7 +23,7 @@ class LoadFiles implements Runnable{
         this.dir = dir;
         this.level = level;
         this.limit = limit;
-        this.curDir - new File(dir);
+        this.curDir = new File(dir);
     }
 
     private synchronized void populateAll(File[] files, int level) {
@@ -48,20 +50,16 @@ class LoadFiles implements Runnable{
 
             // if size limit is reached or exceeded then stop loading and notify
             if(Baton.getSize() >= this.limit) {
-                Baton.readyToLoad();
-                notify();
-            }
-
-            // if loading is stopped and is ready for collection and wait till collected
-            while(Baton.canCollect()) {
-                wait();
+                Baton.readyToCollect();
+                // if loading is stopped and is ready for collection and wait till collected
+                while(Baton.canCollect());
             }
 
             for(String dirName : dirList) {
                 File[] fileArr = new File(dirName).listFiles();
                 populateAll(fileArr, level-1);
             }
-        } catch (InterruptedException e) {
+        } catch (Exception e) {
             // Restore Interrupted Status
             Thread.currentThread().interrupt();
         }
@@ -70,9 +68,7 @@ class LoadFiles implements Runnable{
 
     private synchronized void load() {
         this.populateAll(this.curDir.listFiles(), this.level);
-        Baton.readyToLoad();
         Baton.complete();
-        notify();
     }
 
     public void run() {

@@ -1,41 +1,24 @@
 package src.main;
 
-import java.util.Vector;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.ArrayBlockingQueue;
+import java.lang.Thread;
 
 import src.argUtils.Options;
 
-public class OptimalLookup {
+public class OptimalLookup{
 
-    public static final int LIMIT = 200;
-
-    private static int count = 0;
-
-    public static int find(String dir, String target, int level, Options options) {
+    public static synchronized int find(String dir, String pattern, int level, int limit, Options options) {
 
         try {
-            ThreadPoolExecutor pool = new ThreadPoolExecutor(200, 250, 1, TimeUnit.MINUTES, new ArrayBlockingQueue<Runnable>(600), new ThreadPoolExecutor.CallerRunsPolicy());
-            GetFiles getFiles = new GetFiles(dir, level);
-            Vector<Vector<String>> names_list = getFiles.fetchBatch(200);
-
-            for(Vector<String> names : names_list) {
-
-                for (String name: names) {
-                    pool.execute(new Finder(name, target, options.hasColor()));
-                    count++;
-                }
-
-                while (pool.getTaskCount() != pool.getCompletedTaskCount()) {
-                    System.out.print("SCANNING FILES.... \r");
-                };
-            }
-            pool.shutdown();
-            pool.awaitTermination(10, TimeUnit.SECONDS);
-        } catch (InterruptedException ie) {
-            System.out.println("Tasks took too long to complete.");
+            LoadFiles loadFiles = new LoadFiles(dir, level, limit);
+            Lookup lookup = new Lookup(pattern, options.hasColor(), options.isShouldLogFileName());
+            Thread loadFilesThread = new Thread(loadFiles), lookupThread = new Thread(lookup);
+            lookupThread.start();
+            loadFilesThread.start();
+            lookupThread.join();
+            loadFilesThread.join();
+        } catch(Exception e) {
+            System.out.println("Task took too long to complete.");
         }
-        return count;
+        return Baton.getTotalSize();
     }
 }

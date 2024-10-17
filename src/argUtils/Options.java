@@ -28,9 +28,24 @@ public class Options {
 
     private boolean isCaseInsensitive;
 
+    // un-implemented
+    private boolean shouldLogFileName;
+
     private boolean needsPerformanceLog;
 
+    public Options() {
+        this.hasHelp = false;
+        this.hasLevel = false;
+        this.hasColor = false;
+        this.isWordWrapped = false;
+        this.isRecursiveSearch = false;
+        this.isCaseInsensitive = false;
+        this.shouldLogFileName = true;
+        this.needsPerformanceLog = false;
+    }
+
     public Options(String optionsString) {
+        this();
         this.setOptionFlags(optionsString);
     }
 
@@ -82,5 +97,9 @@ public class Options {
 
     public boolean needsPerformanceLog() {
         return needsPerformanceLog;
+    }
+
+    public boolean isShouldLogFileName() {
+        return shouldLogFileName;
     }
 }

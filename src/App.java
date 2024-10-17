@@ -19,6 +19,8 @@ public class App {
 
     private static Arguments arguments;
 
+    private static final int LIMIT = 250;
+
     private static ArgumentsTransform argumentsTransform;
 
     public static void main(String[] args) {
@@ -39,7 +41,7 @@ public class App {
             System.exit(1);
         }
         options = arguments.getOptions();
-        int totalCount = OptimalLookup.find(arguments.getSrc(), arguments.getPattern(), arguments.getLevel(), options);
+        int totalCount = OptimalLookup.find(arguments.getSrc(), arguments.getPattern(), arguments.getLevel(), LIMIT, options);
 
         if (options.needsPerformanceLog()) {
             final long endTime = System.currentTimeMillis();

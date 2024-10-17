@@ -23,8 +23,6 @@ public class Lookup implements Runnable{
 
     private boolean shouldLogFileName;
 
-    private Vector<String> fileNames;
-
     {
         this.lookupComplete = false;
     }
@@ -59,7 +57,7 @@ public class Lookup implements Runnable{
                 System.out.println(String.join("\n", this.result.toString()));
             }
         } catch(FileNotFoundException e) {
-            System.out.println(filename + " NOT FOUND");
+            System.out.println(fileName + " NOT FOUND");
         } finally {
 
             if(file != null) {
@@ -71,26 +69,21 @@ public class Lookup implements Runnable{
     private synchronized void load(){
 
         try{
-            while(this.lookupComplete == false) {
+            while(!Baton.isComplete()) {
 
-                while(Baton.canCollect() == false) {
-                    wait();
-                }
-                // load all the file names
-                this.fileNames = Baton.getFileNames();
-
-                // reset and resend the baton for loading fileNames
-                Baton.readyToLoad();
+                // wait until files are ready to collect
+                while(!Baton.canCollect());
 
                 // start looping through the files to look for the pattern
-                for(String fileName: this.fileNames) {
+                for(String fileName: Baton.getFileNames()) {
                     this.find(fileName);
                 }
-
-                // marks the completion of loading fileNames
-                this.lookupComplete = Baton.isComplete();
+                Baton.readyToLoad();
+                // notify the loading thread waiting
             }
-        } catch(InterruptedException e) {
+        } catch(IOException e) {
+            System.out.println("Cannot find a data stream");
+        } catch(Exception e) {
             //Restoring Thread Interruption Status
             Thread.currentThread().interrupt();
         }
@@ -99,8 +92,6 @@ public class Lookup implements Runnable{
     public void run() {
         try {
             this.load();
-        } catch(IOException e) {
-            System.out.println("Cannot find a data stream")
         } catch(Exception e) {
             System.out.println("Something went wrong");
         }
